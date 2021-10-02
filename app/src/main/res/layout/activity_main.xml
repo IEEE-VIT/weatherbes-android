@@ -8,26 +8,37 @@
     android:layout_height="match_parent"
     android:background="@drawable/sunny_back"
     android:padding="10dp">
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="33dp"
+        android:layout_height="35dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/backarrowwhite" />
     <TextView
         android:id="@+id/city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="false"
+        android:layout_marginTop="6dp"
         android:text="City"
         android:textColor="#fff"
         android:textSize="32sp"
         android:textStyle="bold" />
 
+</LinearLayout>
     <TextView
+        android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Date"
-        android:id="@+id/date"
-        android:textStyle="bold"
+        android:layout_marginTop="5dp"
         android:textColor="#BEBDBD"
-        android:textSize="12sp"/>
-
+        android:textSize="12sp"
+        android:textStyle="bold" />
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
