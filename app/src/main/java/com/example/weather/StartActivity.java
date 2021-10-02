@@ -1,15 +1,13 @@
 package com.example.weather;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -33,12 +31,16 @@ public class StartActivity extends AppCompatActivity {
                         toast.show();
                         break;
                     }
-                    else
-                    {
-                        Intent intent = new Intent(StartActivity.this, MainActivity.class);
-                        intent.putExtra("City", city.getText().toString().trim());
-                        startActivity(intent);
-                        finish();
+                    else {
+                        String inputCity = city.getText().toString().trim();
+                        if (!inputCity.equals("")) {
+                            Intent intent = new Intent(StartActivity.this, MainActivity.class);
+                            intent.putExtra("City", inputCity);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Toast.makeText(StartActivity.this, "Please enter a city's name!", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
 
