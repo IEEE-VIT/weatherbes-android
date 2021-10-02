@@ -183,6 +183,7 @@ public class MainActivity extends AppCompatActivity {
         {
             finish();
         }
+
         return super.onKeyDown(keyCode, event);
     }
 }
