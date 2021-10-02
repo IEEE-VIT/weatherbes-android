@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     double feels_like, temp_max, temp_min, temp, wind_speed;
     int humidity, pressure, wind_dir, visibility;
     ImageView main_image;
-
     LinearLayout layout;
 
     TextView Main, Description, feels_Like, temp_Max, temp_Min,
@@ -42,13 +41,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.splash);
-
+        setContentView(R.layout.progressbar);
         String key = "68e0849e2278e59e44e67ee712a368e0";
 
         Intent intent = getIntent();
         final String city_name = intent.getExtras().getString("City");
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.openweathermap.org/data/2.5/")
                 .addConverterFactory(GsonConverterFactory.create())
