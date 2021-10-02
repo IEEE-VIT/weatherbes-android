@@ -46,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
         String key = "68e0849e2278e59e44e67ee712a368e0";
 
         Intent intent = getIntent();
-        final String city_name = intent.getExtras().getString("City");
+        final String city_name=intent.getExtras().getString("City");
+
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://api.openweathermap.org/data/2.5/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<Weather> call, Response<Weather> response) {
 
                 Weather weather = response.body();
+
                 setContentView(R.layout.activity_main);
 
                 Temp = findViewById(R.id.temperature);
@@ -75,102 +78,103 @@ public class MainActivity extends AppCompatActivity {
                 Main = findViewById(R.id.main);
                 main_image = findViewById(R.id.main_image);
 
-                List<Weather_> weather_ = weather.getWeather();
-                for (Weather_ weather_1 : weather_) {
-                    main = weather_1.getMain();
-                    description = weather_1.getDescription();
-                }
+                    List<Weather_> weather_ = weather.getWeather();
 
-                Main.setText(main);
-
-                date = findViewById(R.id.date);
-                City = findViewById(R.id.city);
-                City.setText(city_name);
-
-                City.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent1=new Intent(MainActivity.this, StartActivity.class);
-                        startActivity(intent1);
+                    for (Weather_ weather_1 : weather_) {
+                        main = weather_1.getMain();
+                        description = weather_1.getDescription();
                     }
-                });
 
-                if (main.equals("Clouds")) {
-                    layout.setBackgroundResource(R.drawable.cloudy_back);
-                    date.setTextColor(Color.GRAY);
-                    City.setTextColor(Color.BLACK);
-                    main_image.setImageResource(R.drawable.cloud);
-                }
-                if (main.equals("Haze")) {
-                    layout.setBackgroundResource(R.drawable.haze_back);
-                    date.setTextColor(Color.GRAY);
-                    City.setTextColor(Color.BLACK);
-                    main_image.setImageResource(R.drawable.haze);
-                }
-                if (main.equals("Sunny")) {
-                    layout.setBackgroundResource(R.drawable.sunny_back);
-                    date.setTextColor(Color.WHITE);
-                    City.setTextColor(Color.WHITE);
-                    main_image.setImageResource(R.drawable.sun);
-                }
-                if (main.equals("Rain")) {
-                    layout.setBackgroundResource(R.drawable.rainy_back);
-                    date.setTextColor(Color.WHITE);
-                    City.setTextColor(Color.WHITE);
-                    main_image.setImageResource(R.drawable.rain);
-                }
-                if (main.equals("Drizzle")) {
-                    layout.setBackgroundResource(R.drawable.rainy_back);
-                    date.setTextColor(Color.WHITE);
-                    City.setTextColor(Color.WHITE);
-                    main_image.setImageResource(R.drawable.drizzle);
-                }
-                if (main.equals("Clear")) {
-                    layout.setBackgroundResource(R.drawable.clear_back);
-                    date.setTextColor(Color.WHITE);
-                    City.setTextColor(Color.WHITE);
-                    main_image.setImageResource(R.drawable.clear);
-                }
+                    Main.setText(main);
 
-                Description.setText(description);
+                    date = findViewById(R.id.date);
+                    City = findViewById(R.id.city);
+                    City.setText(city_name);
 
-                com.example.weather.model.Main main = weather.getMain();
+                    City.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent1 = new Intent(MainActivity.this, StartActivity.class);
+                            startActivity(intent1);
+                        }
+                    });
 
-                temp = main.getTemp();
-                feels_like = main.getFeelsLike();
-                temp_max = main.getTempMax();
-                temp_min = main.getTempMin();
-                humidity = main.getHumidity();
-                pressure = main.getPressure();
-                String Date = new SimpleDateFormat("dd/MM/yyyy, EEEE", Locale.getDefault()).format(new Date());
+                    if (main.equals("Clouds")) {
+                        layout.setBackgroundResource(R.drawable.cloudy_back);
+                        date.setTextColor(Color.GRAY);
+                        City.setTextColor(Color.BLACK);
+                        main_image.setImageResource(R.drawable.cloud);
+                    }
+                    if (main.equals("Haze")) {
+                        layout.setBackgroundResource(R.drawable.haze_back);
+                        date.setTextColor(Color.GRAY);
+                        City.setTextColor(Color.BLACK);
+                        main_image.setImageResource(R.drawable.haze);
+                    }
+                    if (main.equals("Sunny")) {
+                        layout.setBackgroundResource(R.drawable.sunny_back);
+                        date.setTextColor(Color.WHITE);
+                        City.setTextColor(Color.WHITE);
+                        main_image.setImageResource(R.drawable.sun);
+                    }
+                    if (main.equals("Rain")) {
+                        layout.setBackgroundResource(R.drawable.rainy_back);
+                        date.setTextColor(Color.WHITE);
+                        City.setTextColor(Color.WHITE);
+                        main_image.setImageResource(R.drawable.rain);
+                    }
+                    if (main.equals("Drizzle")) {
+                        layout.setBackgroundResource(R.drawable.rainy_back);
+                        date.setTextColor(Color.WHITE);
+                        City.setTextColor(Color.WHITE);
+                        main_image.setImageResource(R.drawable.drizzle);
+                    }
+                    if (main.equals("Clear")) {
+                        layout.setBackgroundResource(R.drawable.clear_back);
+                        date.setTextColor(Color.WHITE);
+                        City.setTextColor(Color.WHITE);
+                        main_image.setImageResource(R.drawable.clear);
+                    }
 
-                if (weather.getVisibility() != null) {
-                    visibility = weather.getVisibility();
-                    Visibility.setText(Integer.toString(visibility));
-                } else {
-                    Visibility.setText("Not\navailable");
-                }
+                    Description.setText(description);
 
-                Wind wind = weather.getWind();
-                wind_speed = wind.getSpeed();
-                wind_dir = wind.getDeg();
+                    com.example.weather.model.Main main = weather.getMain();
 
-                temp_Max.setText(String.format("%.2f", temp_max - 273) + "°C");
-                temp_Min.setText(String.format("%.2f", temp_min - 273) + "°C");
-                Temp.setText(String.format("%.2f", temp - 273) + "°C");
-                feels_Like.setText("Feels like " + String.format("%.2f", feels_like - 273) + "°C");
+                    temp = main.getTemp();
+                    feels_like = main.getFeelsLike();
+                    temp_max = main.getTempMax();
+                    temp_min = main.getTempMin();
+                    humidity = main.getHumidity();
+                    pressure = main.getPressure();
+                    String Date = new SimpleDateFormat("dd/MM/yyyy, EEEE", Locale.getDefault()).format(new Date());
 
-                Humidity.setText(Integer.toString(humidity));
+                    if (weather.getVisibility() != null) {
+                        visibility = weather.getVisibility();
+                        Visibility.setText(Integer.toString(visibility));
+                    } else {
+                        Visibility.setText("Not\navailable");
+                    }
 
-                Pressure.setText(Integer.toString(pressure));
-                wind_Speed.setText(Double.toString(wind_speed));
+                    Wind wind = weather.getWind();
+                    wind_speed = wind.getSpeed();
+                    wind_dir = wind.getDeg();
 
-                date.setText(Date);
+                    temp_Max.setText(String.format("%.2f", temp_max - 273) + "°C");
+                    temp_Min.setText(String.format("%.2f", temp_min - 273) + "°C");
+                    Temp.setText(String.format("%.2f", temp - 273) + "°C");
+                    feels_Like.setText("Feels like " + String.format("%.2f", feels_like - 273) + "°C");
+
+                    Humidity.setText(Integer.toString(humidity));
+
+                    Pressure.setText(Integer.toString(pressure));
+                    wind_Speed.setText(Double.toString(wind_speed));
+
+
             }
 
             @Override
             public void onFailure(Call<Weather> call, Throwable t) {
-                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+
             }
 
         });
@@ -185,4 +189,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
 }

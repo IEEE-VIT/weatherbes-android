@@ -33,9 +33,7 @@ public class Main {
         this.temp = temp;
     }
 
-    public Double getFeelsLike() {
-        return feelsLike;
-    }
+    public Double getFeelsLike() { return feelsLike; }
 
     public void setFeelsLike(Double feelsLike) {
         this.feelsLike = feelsLike;
