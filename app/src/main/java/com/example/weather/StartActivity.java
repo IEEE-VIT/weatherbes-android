@@ -33,7 +33,7 @@ public class StartActivity extends AppCompatActivity {
                     }
                     else {
                         String inputCity = city.getText().toString().trim();
-                        if (!inputCity.equals("")) {
+                        if (!inputCity.isEmpty()) {
                             Intent intent = new Intent(StartActivity.this, MainActivity.class);
                             intent.putExtra("City", inputCity);
                             startActivity(intent);
@@ -46,5 +46,10 @@ public class StartActivity extends AppCompatActivity {
 
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
     }
 }

@@ -1,10 +1,13 @@
 package com.example.weather;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,11 +40,15 @@ public class MainActivity extends AppCompatActivity {
 
     TextView Main, Description, feels_Like, temp_Max, temp_Min,
             Temp, wind_Speed, Humidity, Pressure, Visibility, date, City;
+    AlertDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.progressbar);
+        setContentView(R.layout.activity_main);
+
+        showLoadingDialog();
+
         String key = "68e0849e2278e59e44e67ee712a368e0";
 
         Intent intent = getIntent();
@@ -59,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<Weather> call, Response<Weather> response) {
 
                 Weather weather = response.body();
-                setContentView(R.layout.activity_main);
 
                 Temp = findViewById(R.id.temperature);
                 temp_Max = findViewById(R.id.max_temp);
@@ -91,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent1=new Intent(MainActivity.this, StartActivity.class);
                         startActivity(intent1);
+                        finish();
                     }
                 });
 
@@ -165,12 +172,36 @@ public class MainActivity extends AppCompatActivity {
                 wind_Speed.setText(Double.toString(wind_speed));
 
                 date.setText(Date);
+
+                hideLoadingDialog();
             }
 
             @Override
             public void onFailure(Call<Weather> call, Throwable t) {
                 Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                hideLoadingDialog();
             }
         });
+    }
+
+    public void showLoadingDialog(){
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.loading_dialog, null);
+        loadingDialog = new AlertDialog.Builder(this)
+                .setView(dialogView)
+                .setCancelable(false)
+                .create();
+        loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        loadingDialog.show();
+    }
+
+    public void hideLoadingDialog(){
+        loadingDialog.hide();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(MainActivity.this, StartActivity.class));
+        finish();
     }
 }

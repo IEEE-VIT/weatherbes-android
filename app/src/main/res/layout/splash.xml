@@ -9,9 +9,12 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="271dp"
-        android:layout_height="122dp"
-        android:fontFamily="sans-serif-condensed-medium"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="32dp"
+        android:fontFamily="@font/poppins_bold"
         android:text="The Weather App"
         android:textAlignment="center"
         android:textColor="#F6F6F7"
@@ -19,19 +22,21 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.599" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="277dp"
-        android:layout_height="250dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/mainAnimation"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="32dp"
+        android:scaleType="fitStart"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.522"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.272"
-        app:srcCompat="@drawable/rainbow" />
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="splash.json"
+        app:lottie_loop="true" />
 </androidx.constraintlayout.widget.ConstraintLayout>
