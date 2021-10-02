@@ -1,16 +1,15 @@
 package com.example.weather;
-
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
+
+
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -46,11 +45,13 @@ public class MainActivity extends AppCompatActivity {
 
     TextView Main, Description, feels_Like, temp_Max, temp_Min,
             Temp, wind_Speed, Humidity, Pressure, Visibility, date, City;
+    private AlertDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.progressbar);
+        showLoadingDialog();
         String key = "68e0849e2278e59e44e67ee712a368e0";
 
         Intent intent = getIntent();
@@ -177,13 +178,13 @@ public class MainActivity extends AppCompatActivity {
                 wind_Speed.setText(Double.toString(wind_speed));
 
                 date.setText(Date);
+                hideLoadingDialog();
             }
 
             @Override
-            public void onFailure(@NonNull final Call<Weather> call, @NonNull final Throwable t) {
-                Toast.makeText(MainActivity.this, "error fetching data", Toast.LENGTH_SHORT).show();
-                Intent intent2=new Intent(MainActivity.this, StartActivity.class);
-                startActivity(intent2);
+            public void onFailure(Call<Weather> call, Throwable t) {
+                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                hideLoadingDialog();
             }
 
         });
@@ -197,5 +198,19 @@ public class MainActivity extends AppCompatActivity {
             finish();
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void showLoadingDialog() {
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.loading_dialog, null);
+        loadingDialog = new AlertDialog.Builder(this)
+                .setView(dialogView)
+                .setCancelable(false)
+                .create();
+        loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        loadingDialog.show();
+    }
+
+    private void hideLoadingDialog(){
+        loadingDialog.hide();
     }
 }
