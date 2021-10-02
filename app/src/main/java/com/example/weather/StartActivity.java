@@ -25,25 +25,27 @@ public class StartActivity extends AppCompatActivity {
         go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for(int i=0; i<continents.length;i++) {
+                boolean isContinent = false;
+                for (int i = 0; i < continents.length; i++) {
                     if (city.getText().toString().toUpperCase().equals(continents[i])) {
                         Toast toast = Toast.makeText(getApplicationContext(), "Weather not found!", Toast.LENGTH_LONG);
                         toast.show();
+                        isContinent = true;
                         break;
-                    }
-                    else {
-                        String inputCity = city.getText().toString().trim();
-                        if (!inputCity.equals("")) {
-                            Intent intent = new Intent(StartActivity.this, MainActivity.class);
-                            intent.putExtra("City", inputCity);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            Toast.makeText(StartActivity.this, "Please enter a city's name!", Toast.LENGTH_SHORT).show();
-                        }
                     }
                 }
 
+                if(!isContinent) {
+                    String inputCity = city.getText().toString().trim();
+                    if (!inputCity.equals("")) {
+                        Intent intent = new Intent(StartActivity.this, MainActivity.class);
+                        intent.putExtra("City", inputCity);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(StartActivity.this, "Please enter a city's name!", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
     }
