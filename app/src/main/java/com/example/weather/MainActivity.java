@@ -141,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
                 temp_min = main.getTempMin();
                 humidity = main.getHumidity();
                 pressure = main.getPressure();
-                String Date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+                String Date = new SimpleDateFormat("dd/MM/yyyy, EEEE", Locale.getDefault()).format(new Date());
 
                 if (weather.getVisibility() != null) {
                     visibility = weather.getVisibility();
