@@ -7,6 +7,7 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SplashActivity extends AppCompatActivity {
+    private static int SPLASH_SCREEN_TIME_OUT = 3000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -14,12 +15,16 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable(){
             @Override
             public void run() {
-                Intent intent=new Intent(SplashActivity.this, StartActivity.class);
-                startActivity(intent);
+                Intent i = new Intent(SplashActivity.this,
+                        SplashActivity.class);
+                //Intent is used to switch from one activity to another----->which is currently the same screen.
+
+                startActivity(i);
+                //invoke the SecondActivity.
+
                 finish();
+                //the current activity will get finished.
             }
-
-
-        }, 4000);
+        }, SPLASH_SCREEN_TIME_OUT);
     }
 }
