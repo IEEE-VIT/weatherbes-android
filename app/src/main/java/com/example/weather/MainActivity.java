@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.progressbar);
-        //showLoadingDialog();
+        showLoadingDialog();
         String key = "68e0849e2278e59e44e67ee712a368e0";
 
         Intent intent = getIntent();
@@ -171,13 +171,13 @@ public class MainActivity extends AppCompatActivity {
                 wind_Speed.setText(Double.toString(wind_speed));
 
                 date.setText(Date);
-                //hideLoadingDialog();
+                hideLoadingDialog();
             }
 
             @Override
             public void onFailure(Call<Weather> call, Throwable t) {
                 Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                //hideLoadingDialog();
+                hideLoadingDialog();
             }
 
         });
@@ -193,8 +193,8 @@ public class MainActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    /*private void showLoadingDialog() {
-        View dialogView = LayoutInflater.from(this).inflate(R.layout.loadingDialog, null);
+    private void showLoadingDialog() {
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.loading_dialog, null);
         loadingDialog = new AlertDialog.Builder(this)
                 .setView(dialogView)
                 .setCancelable(false)
@@ -205,5 +205,5 @@ public class MainActivity extends AppCompatActivity {
 
     private void hideLoadingDialog(){
         loadingDialog.hide();
-    }*/
+    }
 }
