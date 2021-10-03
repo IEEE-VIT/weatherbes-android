@@ -69,12 +69,17 @@ public class StartActivity extends AppCompatActivity {
         go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                
+
                 for (int i = 0; i < continents.length; i++) {
                     if (city.getText().toString().toUpperCase().equals(continents[i])) {
                         Toast toast = Toast.makeText(getApplicationContext(), "Weather not found!", Toast.LENGTH_LONG);
                         toast.show();
+                        isContinent = true;
                         break;
                     }
+
                     else {
                         String inputCity = city.getText().toString().trim();
                         if (!inputCity.equals("")) {
@@ -87,6 +92,7 @@ public class StartActivity extends AppCompatActivity {
                         }
                     }
                 }
+
             }
         });
     }

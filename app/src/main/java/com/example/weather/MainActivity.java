@@ -1,11 +1,14 @@
 package com.example.weather;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -38,11 +41,13 @@ public class MainActivity extends AppCompatActivity {
 
     TextView Main, Description, feels_Like, temp_Max, temp_Min,
             Temp, wind_Speed, Humidity, Pressure, Visibility, date, City;
+    private AlertDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.progressbar);
+        showLoadingDialog();
         String key = "68e0849e2278e59e44e67ee712a368e0";
 
         Intent intent = getIntent();
@@ -155,25 +160,87 @@ public class MainActivity extends AppCompatActivity {
                         Visibility.setText("Not\navailable");
                     }
 
-                    Wind wind = weather.getWind();
-                    wind_speed = wind.getSpeed();
-                    wind_dir = wind.getDeg();
+                });
 
-                    temp_Max.setText(String.format("%.2f", temp_max - 273) + "°C");
-                    temp_Min.setText(String.format("%.2f", temp_min - 273) + "°C");
-                    Temp.setText(String.format("%.2f", temp - 273) + "°C");
-                    feels_Like.setText("Feels like " + String.format("%.2f", feels_like - 273) + "°C");
+                if (main.equals("Clouds")) {
+                    layout.setBackgroundResource(R.drawable.cloudy_back);
+                    date.setTextColor(Color.GRAY);
+                    City.setTextColor(Color.BLACK);
+                    main_image.setImageResource(R.drawable.cloud);
+                }
+                if (main.equals("Haze")) {
+                    layout.setBackgroundResource(R.drawable.haze_back);
+                    date.setTextColor(Color.GRAY);
+                    City.setTextColor(Color.BLACK);
+                    main_image.setImageResource(R.drawable.haze);
+                }
+                if (main.equals("Sunny")) {
+                    layout.setBackgroundResource(R.drawable.sunny_back);
+                    date.setTextColor(Color.WHITE);
+                    City.setTextColor(Color.WHITE);
+                    main_image.setImageResource(R.drawable.sun);
+                }
+                if (main.equals("Rain")) {
+                    layout.setBackgroundResource(R.drawable.rainy_back);
+                    date.setTextColor(Color.WHITE);
+                    City.setTextColor(Color.WHITE);
+                    main_image.setImageResource(R.drawable.rain);
+                }
+                if (main.equals("Drizzle")) {
+                    layout.setBackgroundResource(R.drawable.rainy_back);
+                    date.setTextColor(Color.WHITE);
+                    City.setTextColor(Color.WHITE);
+                    main_image.setImageResource(R.drawable.drizzle);
+                }
+                if (main.equals("Clear")) {
+                    layout.setBackgroundResource(R.drawable.clear_back);
+                    date.setTextColor(Color.WHITE);
+                    City.setTextColor(Color.WHITE);
+                    main_image.setImageResource(R.drawable.clear);
+                }
 
-                    Humidity.setText(Integer.toString(humidity));
+                Description.setText(description);
 
-                    Pressure.setText(Integer.toString(pressure));
-                    wind_Speed.setText(Double.toString(wind_speed));
+                com.example.weather.model.Main main = weather.getMain();
 
+                temp = main.getTemp();
+                feels_like = main.getFeelsLike();
+                temp_max = main.getTempMax();
+                temp_min = main.getTempMin();
+                humidity = main.getHumidity();
+                pressure = main.getPressure();
+                String Date = new SimpleDateFormat("dd/MM/yyyy, EEEE", Locale.getDefault()).format(new Date());
 
+                if (weather.getVisibility() != null) {
+                    visibility = weather.getVisibility();
+                    Visibility.setText(Integer.toString(visibility));
+                } else {
+                    Visibility.setText("Not\navailable");
+                }
+
+                Wind wind = weather.getWind();
+                wind_speed = wind.getSpeed();
+                wind_dir = wind.getDeg();
+
+                temp_Max.setText(String.format("%.2f", temp_max - 273) + "°C");
+                temp_Min.setText(String.format("%.2f", temp_min - 273) + "°C");
+                Temp.setText(String.format("%.2f", temp - 273) + "°C");
+                feels_Like.setText("Feels like " + String.format("%.2f", feels_like - 273) + "°C");
+
+                Humidity.setText(Integer.toString(humidity));
+
+                Pressure.setText(Integer.toString(pressure));
+                wind_Speed.setText(Double.toString(wind_speed));
+
+                date.setText(Date);
+                hideLoadingDialog();
+          
             }
 
             @Override
             public void onFailure(Call<Weather> call, Throwable t) {
+       Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+                hideLoadingDialog();
 
             }
 
@@ -190,4 +257,18 @@ public class MainActivity extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+
+    private void showLoadingDialog() {
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.loading_dialog, null);
+        loadingDialog = new AlertDialog.Builder(this)
+                .setView(dialogView)
+                .setCancelable(false)
+                .create();
+        loadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        loadingDialog.show();
+    }
+
+    private void hideLoadingDialog(){
+        loadingDialog.hide();
+    }
 }
