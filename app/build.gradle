@@ -10,6 +10,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "API_KEY", "\"68e0849e2278e59e44e67ee712a368e0\""
     }
     buildTypes {
         release {
@@ -32,4 +34,7 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
 
     implementation 'com.opencsv:opencsv:4.6'
+    // Lottie Animation
+    implementation "com.airbnb.android:lottie:4.1.0"
+
 }
