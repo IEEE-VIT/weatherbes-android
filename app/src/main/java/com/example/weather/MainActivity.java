@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.progressbar);
         showLoadingDialog();
-        String key = "68e0849e2278e59e44e67ee712a368e0";
+        String key = BuildConfig.API_KEY;
 
         Intent intent = getIntent();
         final String city_name = intent.getExtras().getString("City");
