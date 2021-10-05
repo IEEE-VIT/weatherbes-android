@@ -24,6 +24,9 @@ public class Main {
     @SerializedName("humidity")
     @Expose
     private Integer humidity;
+    @Expose
+    @SerializedName("PrecipitationType")
+    private String pptType;
 
     public Double getTemp() {
         return temp;
@@ -72,5 +75,9 @@ public class Main {
     public void setHumidity(Integer humidity) {
         this.humidity = humidity;
     }
+
+    public String getPptType(){return pptType;}
+
+    public void setPptType(String pptType){this.pptType=pptType;}
 
 }
