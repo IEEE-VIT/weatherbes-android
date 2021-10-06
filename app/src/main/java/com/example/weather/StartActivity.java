@@ -2,7 +2,11 @@ package com.example.weather;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -12,16 +16,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.weather.api.WeatherAPI;
 import com.example.weather.model.Weather;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class StartActivity extends AppCompatActivity {
+public class StartActivity extends AppCompatActivity implements TextWatcher {
 
 
-    EditText city;
+    AutoCompleteTextView city;
+    ArrayList<String> cities;
 
     void isValidCity(final String city)
     {
@@ -64,6 +74,31 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
         city=findViewById(R.id.city_name);
 
+        //connecting citties arrayList with worldcities.csv(list of city names)
+        cities=new ArrayList<>();
+        String path = "worldcities.csv";
+        String line = "";
+        InputStreamReader is = null;
+        try {
+            is = new InputStreamReader(getAssets()
+                    .open("worldcities.csv"));
+            BufferedReader reader = new BufferedReader(is);
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+//                System.out.println(line);
+                cities.add(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+
+
+        city.addTextChangedListener(this);
+        city.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, cities));
+
+
+
         final String continents[] = {"ASIA","EUROPE", "AFRICA","AUSTRALIA","NORTH AMERICA","SOUTH AMERICA","ANTARCTICA"};
         Button go=findViewById(R.id.go);
         go.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +124,21 @@ public class StartActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+
     }
 }
 
