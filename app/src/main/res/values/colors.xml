@@ -3,4 +3,5 @@
     <color name="colorPrimary">#FBFCFB</color>
     <color name="colorPrimaryDark">#BEBEBE</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="backButtoncustom">#FCE9E9</color>
 </resources>

@@ -1,21 +1,24 @@
 package com.example.weather;
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
+
+
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.weather.api.WeatherAPI;
+import com.example.weather.model.Main;
 import com.example.weather.model.Weather;
 import com.example.weather.model.Weather_;
 import com.example.weather.model.Wind;
@@ -34,6 +37,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     String main, description;
+    Button backButton;
     double feels_like, temp_max, temp_min, temp, wind_speed;
     int humidity, pressure, wind_dir, visibility;
     ImageView main_image;
@@ -68,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 setContentView(R.layout.activity_main);
 
                 Temp = findViewById(R.id.temperature);
+                backButton = findViewById(R.id.backButton);
                 temp_Max = findViewById(R.id.max_temp);
                 temp_Min = findViewById(R.id.min_temp);
                 feels_Like = findViewById(R.id.feels_like);
@@ -92,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 City = findViewById(R.id.city);
                 City.setText(city_name);
 
-                City.setOnClickListener(new View.OnClickListener() {
+                backButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent1=new Intent(MainActivity.this, StartActivity.class);
@@ -104,12 +109,14 @@ public class MainActivity extends AppCompatActivity {
                     layout.setBackgroundResource(R.drawable.cloudy_back);
                     date.setTextColor(Color.GRAY);
                     City.setTextColor(Color.BLACK);
+                    backButton.setBackgroundResource(R.drawable.backarrowblack);
                     main_image.setImageResource(R.drawable.cloud);
                 }
                 if (main.equals("Haze")) {
                     layout.setBackgroundResource(R.drawable.haze_back);
                     date.setTextColor(Color.GRAY);
                     City.setTextColor(Color.BLACK);
+                    backButton.setBackgroundResource(R.drawable.backarrowblack);
                     main_image.setImageResource(R.drawable.haze);
                 }
                 if (main.equals("Sunny")) {

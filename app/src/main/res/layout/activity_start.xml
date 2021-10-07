@@ -33,6 +33,7 @@
 
     <AutoCompleteTextView
         android:id="@+id/city_name"
+        android:inputType="textCapSentences"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/my_edittext_background"
