@@ -34,6 +34,7 @@
     <AutoCompleteTextView
         android:id="@+id/city_name"
         android:layout_width="0dp"
+        android:inputType="text"
         android:layout_height="0dp"
         android:background="@drawable/my_edittext_background"
         android:hint="Enter City"
