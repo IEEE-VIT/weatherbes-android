@@ -37,12 +37,8 @@ public class StartActivity extends AppCompatActivity implements TextWatcher {
     {
 
         String key = "68e0849e2278e59e44e67ee712a368e0";
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.openweathermap.org/data/2.5/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        final WeatherAPI weatherApi = retrofit.create(WeatherAPI.class);
+        final WeatherAPI weatherApi = WeatherRetrofit.getClient().create(WeatherAPI.class);
         Call<Weather> call = weatherApi.getWeather(city, key);
 
         call.enqueue(new Callback<Weather>() {
