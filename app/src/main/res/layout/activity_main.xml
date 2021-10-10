@@ -9,6 +9,7 @@
     android:background="@drawable/sunny_back"
     android:padding="10dp">
 
+
     <TextView
         android:id="@+id/city"
         android:layout_width="wrap_content"
@@ -25,15 +26,16 @@
         android:text="Date"
         android:id="@+id/date"
         android:textStyle="bold"
-        android:textColor="#BEBDBD"
+        android:textColor="#ffffff"
         android:textSize="12sp"/>
 
+
     <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:id="@+id/main_image"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="60dp"
-        android:id="@+id/main_image"/>
+        android:layout_marginTop="30dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -183,102 +185,123 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
 
-            <LinearLayout
-                android:layout_width="70dp"
+        <LinearLayout
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/pressure" />
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:text="Pressure"
+                android:textAlignment="center"
+                android:textColor="#fff" />
 
-                <ImageView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@drawable/pressure"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Pressure"
-                    android:textAlignment="center"
-                    android:textColor="#fff"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Value"
-                    android:layout_gravity="center_horizontal"
-                    android:textStyle="bold"
-                    android:id="@+id/pressure"
-                    android:textAlignment="center"
-                    android:textColor="#fff"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="70dp"
+            <TextView
+                android:id="@+id/pressure"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginHorizontal="30dp">
+                android:layout_gravity="center_horizontal"
+                android:text="Value"
+                android:textAlignment="center"
+                android:textColor="#fff"
+                android:textStyle="bold" />
 
-                <ImageView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@drawable/temp_min"/>
+        </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Min Temp"
-                    android:textAlignment="center"
-                    android:textColor="#fff"/>
+        <LinearLayout
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Value"
-                    android:layout_gravity="center_horizontal"
-                    android:id="@+id/min_temp"
-                    android:textStyle="bold"
-                    android:textAlignment="center"
-                    android:textColor="#fff"/>
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/temp_min" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="70dp"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:text="Min Temp"
+                android:textAlignment="center"
+                android:textColor="#fff" />
 
-                <ImageView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@drawable/temp_max"/>
+            <TextView
+                android:id="@+id/min_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Value"
+                android:textAlignment="center"
+                android:textColor="#fff"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Max Temp"
-                    android:textAlignment="center"
-                    android:textColor="#fff"/>
+        </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Value"
-                    android:layout_gravity="center_horizontal"
-                    android:id="@+id/max_temp"
-                    android:textStyle="bold"
-                    android:textAlignment="center"
-                    android:textColor="#fff"/>
+        <LinearLayout
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            </LinearLayout>
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/temp_max" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Max Temp"
+                android:textAlignment="center"
+                android:textColor="#fff" />
+
+            <TextView
+                android:id="@+id/max_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Value"
+                android:textAlignment="center"
+                android:textColor="#fff"
+                android:textStyle="bold" />
+
+        </LinearLayout>
 
 
     </LinearLayout>
+
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/share_button"
+        android:drawableLeft="@drawable/ic_icons8_share__2_"
+        android:fontFamily="sans-serif-medium"
+        android:includeFontPadding="false"
+        android:paddingLeft="38dp"
+        android:paddingTop="8dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="8dp"
+        android:text="Share the Data"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        android:textSize="18sp" />
+
 
 </LinearLayout>
