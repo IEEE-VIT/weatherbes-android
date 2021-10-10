@@ -10,12 +10,14 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.weather.api.WeatherAPI;
+import com.example.weather.model.Main;
 import com.example.weather.model.Weather;
 import com.example.weather.model.Weather_;
 import com.example.weather.model.Wind;
@@ -33,12 +35,12 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
-    String main, description;
+    String main, description, Date, city_name;
     double feels_like, temp_max, temp_min, temp, wind_speed;
     int humidity, pressure, wind_dir, visibility;
     ImageView main_image;
     LinearLayout layout;
-
+    Button button;
     TextView Main, Description, feels_Like, temp_Max, temp_Min,
             Temp, wind_Speed, Humidity, Pressure, Visibility, date, City;
     private AlertDialog loadingDialog;
@@ -48,8 +50,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.progressbar);
         showLoadingDialog();
-        String key = BuildConfig.API_KEY;
 
+        String key = BuildConfig.API_KEY;
         Intent intent = getIntent();
         final String city_name = intent.getExtras().getString("City");
         Retrofit retrofit = new Retrofit.Builder()
@@ -79,6 +81,9 @@ public class MainActivity extends AppCompatActivity {
                 layout = findViewById(R.id.layout_main);
                 Main = findViewById(R.id.main);
                 main_image = findViewById(R.id.main_image);
+                button = findViewById(R.id.button);
+
+                button.setOnClickListener(v -> shareWeather());
 
                 List<Weather_> weather_ = weather.getWeather();
                 for (Weather_ weather_1 : weather_) {
@@ -147,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
                 temp_min = main.getTempMin();
                 humidity = main.getHumidity();
                 pressure = main.getPressure();
+
                 String Date = new SimpleDateFormat("dd/MM/yyyy, EEEE", Locale.getDefault()).format(new Date());
 
                 if (weather.getVisibility() != null) {
@@ -203,7 +209,21 @@ public class MainActivity extends AppCompatActivity {
         loadingDialog.show();
     }
 
+
     private void hideLoadingDialog(){
         loadingDialog.hide();
+
+    }
+    private void shareWeather(){
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "The weather report of " + city_name +" on "+ Date + " is like this."+"\n"
+                +"Min and max temperature: " + temp_max + " °C, "+ temp_min + " °C "+"\n"+"Humidity: "+ humidity
+                + "\n"+ "Pressure: "+ pressure+"\n"+ "Wind speed: "+ wind_speed + " and wind direction: "+ wind_dir+"\n"
+                + "Visibility: "+visibility + "\n"+"And it feels like " + feels_like+ " and "+ main);
+        sendIntent.setType("text/plain");
+        Intent shareIntent = Intent.createChooser(sendIntent, "Share via ");
+        startActivity(shareIntent);
+
     }
 }
