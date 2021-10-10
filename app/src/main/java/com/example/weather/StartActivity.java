@@ -2,13 +2,13 @@ package com.example.weather;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -101,9 +101,15 @@ public class StartActivity extends AppCompatActivity implements TextWatcher {
 
         final String continents[] = {"ASIA","EUROPE", "AFRICA","AUSTRALIA","NORTH AMERICA","SOUTH AMERICA","ANTARCTICA"};
         Button go=findViewById(R.id.go);
+
         go.setOnClickListener(new View.OnClickListener() {
+            private long mLastClickTime = 0;
             @Override
             public void onClick(View v) {
+                if (SystemClock.elapsedRealtime() - mLastClickTime < 1000) {
+                    return;
+                }
+                mLastClickTime = SystemClock.elapsedRealtime();
                 for (int i = 0; i < continents.length; i++) {
                     if (city.getText().toString().toUpperCase().equals(continents[i])) {
                         Toast toast = Toast.makeText(getApplicationContext(), "Weather not found!", Toast.LENGTH_LONG);
@@ -115,9 +121,11 @@ public class StartActivity extends AppCompatActivity implements TextWatcher {
                         if (!inputCity.equals("")) {
 
                             isValidCity(inputCity);
+
                             break;
 
                         } else {
+
                             Toast.makeText(StartActivity.this, "Please enter a city's name!", Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -140,5 +148,8 @@ public class StartActivity extends AppCompatActivity implements TextWatcher {
     public void afterTextChanged(Editable editable) {
 
     }
+
+
 }
+
 
