@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -32,6 +34,28 @@ public class StartActivity extends AppCompatActivity implements TextWatcher {
 
     AutoCompleteTextView city;
     ArrayList<String> cities;
+    final String continents[] = {"ASIA","EUROPE", "AFRICA","AUSTRALIA","NORTH AMERICA","SOUTH AMERICA","ANTARCTICA"};
+
+    void submitCity(){
+        for (int i = 0; i < continents.length; i++) {
+            if (city.getText().toString().toUpperCase().equals(continents[i])) {
+                Toast toast = Toast.makeText(getApplicationContext(), "Weather not found!", Toast.LENGTH_LONG);
+                toast.show();
+                break;
+            }
+            else {
+                String inputCity = city.getText().toString().trim();
+                if (!inputCity.equals("")) {
+
+                    isValidCity(inputCity);
+                    break;
+
+                } else {
+                    Toast.makeText(StartActivity.this, "Please enter a city's name!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
 
     void isValidCity(final String city)
     {
@@ -96,32 +120,25 @@ public class StartActivity extends AppCompatActivity implements TextWatcher {
 
         city.addTextChangedListener(this);
         city.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, cities));
+        city.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if(view.getId() == R.id.city_name){
+                    if(i == KeyEvent.KEYCODE_ENTER && keyEvent.getAction() == KeyEvent.ACTION_DOWN){
+                        submitCity();
+                    }
+                    Log.d("Key", String.valueOf(i));
+                }
+                return false;
+            }
+        });
 
 
-
-        final String continents[] = {"ASIA","EUROPE", "AFRICA","AUSTRALIA","NORTH AMERICA","SOUTH AMERICA","ANTARCTICA"};
         Button go=findViewById(R.id.go);
         go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (int i = 0; i < continents.length; i++) {
-                    if (city.getText().toString().toUpperCase().equals(continents[i])) {
-                        Toast toast = Toast.makeText(getApplicationContext(), "Weather not found!", Toast.LENGTH_LONG);
-                        toast.show();
-                        break;
-                    }
-                    else {
-                        String inputCity = city.getText().toString().trim();
-                        if (!inputCity.equals("")) {
-
-                            isValidCity(inputCity);
-                            break;
-
-                        } else {
-                            Toast.makeText(StartActivity.this, "Please enter a city's name!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
+                submitCity();
             }
         });
     }
