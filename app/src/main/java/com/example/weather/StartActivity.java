@@ -1,6 +1,8 @@
 package com.example.weather;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,6 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.weather.api.WeatherAPI;
 import com.example.weather.model.Weather;
@@ -29,7 +32,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class StartActivity extends AppCompatActivity implements TextWatcher {
 
-
+    Button button;
+    ConstraintLayout nointernet;
     AutoCompleteTextView city;
     ArrayList<String> cities;
 
@@ -124,6 +128,17 @@ public class StartActivity extends AppCompatActivity implements TextWatcher {
                 }
             }
         });
+
+        nointernet=findViewById(R.id.nointernet);
+        button=findViewById(R.id.go);
+        if(!isConnected()){
+            nointernet.setVisibility(View.VISIBLE);
+            button.setVisibility(View.GONE);
+            Toast.makeText(this, "No Internet Access", Toast.LENGTH_SHORT).show();
+        }else{
+            nointernet.setVisibility(View.GONE);
+            button.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -139,6 +154,10 @@ public class StartActivity extends AppCompatActivity implements TextWatcher {
     @Override
     public void afterTextChanged(Editable editable) {
 
+    }
+    private boolean isConnected(){
+        ConnectivityManager connectivityManager=(ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        return connectivityManager.getActiveNetworkInfo()!=null && connectivityManager.getActiveNetworkInfo().isConnectedOrConnecting();
     }
 }
 
