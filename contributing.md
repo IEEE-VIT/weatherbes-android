@@ -50,7 +50,7 @@ This document contains certain rules and guidelines that developers are expected
 - Developers are expected to work on feature branches, and upon successful development and testing, a PR (pull request) must be opened to merge with `main`/`master`.
 - A branch must be named as either as the feature being implemented, or the issue being fixed.
 
-  :white_check_mark: **Examples of valid brach names:**
+  :white_check_mark: **Examples of valid branch names:**
 
   - #8123 (issue number)
   - OAuth (feature)
