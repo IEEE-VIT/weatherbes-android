@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     String main, description, Date, city_name;
     double feels_like, temp_max, temp_min, temp, wind_speed;
     int humidity, pressure, wind_dir, visibility;
+    String pptType,intensity;
     ImageView main_image;
     LinearLayout layout;
     Button button;
