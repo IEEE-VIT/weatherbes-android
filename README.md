@@ -42,3 +42,4 @@ To start contributing, check out [CONTRIBUTING.md](https://github.com/IEEE-VIT/W
 
 ## License
 This project is licensed under [MIT](https://github.com/IEEE-VIT/Weatherbes-Android/blob/master/LICENSE).
+Thanks.
