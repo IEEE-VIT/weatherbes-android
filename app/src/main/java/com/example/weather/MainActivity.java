@@ -1,5 +1,7 @@
 package com.example.weather;
 
+import static android.view.animation.AnimationUtils.loadAnimation;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +12,7 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -38,12 +41,14 @@ public class MainActivity extends AppCompatActivity {
     String main, description, Date, city_name;
     double feels_like, temp_max, temp_min, temp, wind_speed;
     int humidity, pressure, wind_dir, visibility;
-    ImageView main_image;
+    ImageView main_image,imgVisibility,imgHumidity,imgWind,imgPressure,imgMintemp,imgMaxtemp;
     LinearLayout layout;
     Button button;
     TextView Main, Description, feels_Like, temp_Max, temp_Min,
             Temp, wind_Speed, Humidity, Pressure, Visibility, date, City;
     private AlertDialog loadingDialog;
+
+    Animation mainImageAnimation,mainTextAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +56,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.progressbar);
         showLoadingDialog();
 
+        /**
+         * Adding animation to the icons:
+         */
+        mainImageAnimation = loadAnimation(this,R.anim.main_image_animation);
+        mainTextAnimation = loadAnimation(this,R.anim.main_text_animation);
         String key = BuildConfig.API_KEY;
         Intent intent = getIntent();
         final String city_name = intent.getExtras().getString("City");
@@ -82,6 +92,13 @@ public class MainActivity extends AppCompatActivity {
                 Main = findViewById(R.id.main);
                 main_image = findViewById(R.id.main_image);
                 button = findViewById(R.id.button);
+
+                imgVisibility=findViewById(R.id.imgVisiblility);
+                imgHumidity=findViewById(R.id.imgHumidity);
+                imgWind=findViewById(R.id.imgWind);
+                imgPressure=findViewById(R.id.imgPressure);
+                imgMintemp=findViewById(R.id.imgMinTemp);
+                imgMaxtemp=findViewById(R.id.imgMaxtemp);
 
                 button.setOnClickListener(v -> shareWeather());
 
@@ -142,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
                     main_image.setImageResource(R.drawable.clear);
                 }
 
+
                 Description.setText(description);
 
                 com.example.weather.model.Main main = weather.getMain();
@@ -178,6 +196,24 @@ public class MainActivity extends AppCompatActivity {
 
                 date.setText(Date);
                 hideLoadingDialog();
+                main_image.setAnimation(mainImageAnimation);
+                imgVisibility.setAnimation(mainImageAnimation);
+                imgHumidity.setAnimation(mainImageAnimation);
+                imgWind.setAnimation(mainImageAnimation);
+                imgPressure.setAnimation(mainImageAnimation);
+                imgMintemp.setAnimation(mainImageAnimation);
+                imgMaxtemp.setAnimation(mainImageAnimation);
+
+                Visibility.setAnimation(mainTextAnimation);
+                Humidity.setAnimation(mainTextAnimation);
+                Pressure.setAnimation(mainTextAnimation);
+                wind_Speed.setAnimation(mainTextAnimation);
+                temp_Max.setAnimation(mainTextAnimation);
+                temp_Min.setAnimation(mainTextAnimation);
+                Description.setAnimation(mainTextAnimation);
+                Main.setAnimation(mainTextAnimation);
+                Temp.setAnimation(mainTextAnimation);
+                feels_Like.setAnimation(mainTextAnimation);
             }
 
             @Override

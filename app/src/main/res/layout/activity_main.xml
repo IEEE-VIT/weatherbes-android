@@ -91,6 +91,7 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/imgVisiblility"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:layout_gravity="center_horizontal"
@@ -124,6 +125,7 @@
                 android:layout_marginHorizontal="30dp">
 
                 <ImageView
+                    android:id="@+id/imgHumidity"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:layout_gravity="center_horizontal"
@@ -155,6 +157,7 @@
                 android:orientation="vertical">
 
                 <ImageView
+                    android:id="@+id/imgWind"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:layout_gravity="center_horizontal"
@@ -195,6 +198,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/imgPressure"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center_horizontal"
@@ -226,6 +230,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/imgMinTemp"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center_horizontal"
@@ -256,6 +261,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/imgMaxtemp"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center_horizontal"
